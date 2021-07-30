@@ -280,6 +280,15 @@ convertLuftdruck() {
 	MESSWERTE[$1]=`echo "scale=2;${MESSWERTE[$1]}*33864/1000" | bc -l`
 }
 
+convertWindDir() {
+  if ((MESSWERTE[$1] >= 180 && MESSWERTE[$1] <= 360)); then
+    MESSWERTE[$1]=`echo "scale=2;${MESSWERTE[$1]}-180" | bc -l`
+  fi
+  if ((MESSWERTE[$1] >= 0 && MESSWERTE[$1] <= 179)); then
+    MESSWERTE[$1]=`echo "scale=2;${MESSWERTE[$1]}+180" | bc -l`
+  fi
+}
+
 convertInchtoMM() {
      MESSWERTE[$1]=`echo "scale=1;${MESSWERTE[$1]}*254/10" | bc -l`
       #Protokoll #9 liefert keine Regenrate(11); also alle Regenberechnungen überspringen
